@@ -41,7 +41,7 @@
  *****************************************************************************/
 
 const char*
-XMLUtil_GetElementValue (IN const IXML_Element* element)
+XMLUtil_GetElementValue (const IXML_Element* element)
 {
 	const char* res = NULL;
 	IXML_Node* child = ixmlNode_getFirstChild 

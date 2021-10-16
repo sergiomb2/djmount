@@ -125,7 +125,7 @@ Service_SendActionAsyncVa (const Service* serv,Upnp_FunPtr callback,
  *****************************************************************************/
 int 
 Service_SendAction (Service* serv, 
-		    OUT IXML_Document** response,
+		    IXML_Document** response,
 		    const char* actionName,
 		    int nb_params, const StringPair* params);
 
@@ -143,7 +143,7 @@ Service_SendAction (Service* serv,
  *****************************************************************************/
 int
 Service_SendActionVa (Service* serv,
-		      OUT IXML_Document** response,
+		      IXML_Document** response,
 		      const char* actionName, ...);
 
 
@@ -158,8 +158,8 @@ Service_SendActionVa (Service* serv,
  *
  *****************************************************************************/
 int 
-Service_UpdateState (IN Service* serv, 
-		     IN IXML_Document* changedVariables);
+Service_UpdateState (Service* serv, 
+		     IXML_Document* changedVariables);
   
 
 

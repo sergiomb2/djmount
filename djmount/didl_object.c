@@ -57,8 +57,8 @@ DestroyObject (DIDLObject* const o)
  *****************************************************************************/
 DIDLObject*
 DIDLObject_Create (void* talloc_context,
-		   IN IXML_Element* elem, 
-		   IN bool is_container) 
+		   IXML_Element* elem, 
+		   bool is_container) 
 {
 	if (elem == NULL) {
 		Log_Printf (LOG_ERROR, 

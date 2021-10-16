@@ -106,8 +106,8 @@ typedef struct _DIDLObject {
  *****************************************************************************/
 DIDLObject*
 DIDLObject_Create (void* talloc_context,
-		   IN IXML_Element* element,
-		   IN bool is_container);
+		   IXML_Element* element,
+		   bool is_container);
 	
 
 /*****************************************************************************

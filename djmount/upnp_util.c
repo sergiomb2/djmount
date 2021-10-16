@@ -41,7 +41,7 @@
  * UpnpUtil_GetEventTypeString
  *****************************************************************************/
 const char*
-UpnpUtil_GetEventTypeString (IN Upnp_EventType e)
+UpnpUtil_GetEventTypeString (Upnp_EventType e)
 {
   const char* s = 0;
 
@@ -82,8 +82,8 @@ UpnpUtil_GetEventTypeString (IN Upnp_EventType e)
  *****************************************************************************/
 char*
 UpnpUtil_GetEventString (void* talloc_context,
-			 IN Upnp_EventType eventType, 
-			 IN const void* event)
+			 Upnp_EventType eventType, 
+			 const void* event)
 {
 	char* p = talloc_strdup (talloc_context, "");
 	
@@ -111,19 +111,18 @@ UpnpUtil_GetEventString (void* talloc_context,
 		case UPNP_DISCOVERY_ADVERTISEMENT_BYEBYE:
 		case UPNP_DISCOVERY_SEARCH_RESULT:
 		{
-			const struct Upnp_Discovery* const e =
-				(struct Upnp_Discovery*) event;
+            UpnpDiscovery *e = (UpnpDiscovery *) event;
 			
-			tpr (&p, "ErrCode     =  %d\n", e->ErrCode);
-			tpr (&p, "Expires     =  %d\n", e->Expires);
-			tpr (&p, "DeviceId    =  %s\n", NN(e->DeviceId));
-			tpr (&p, "DeviceType  =  %s\n", NN(e->DeviceType));
-			tpr (&p, "ServiceType =  %s\n", NN(e->ServiceType));
-			tpr (&p, "ServiceVer  =  %s\n", NN(e->ServiceVer));
-			tpr (&p, "Location    =  %s\n", NN(e->Location));
-			tpr (&p, "OS          =  %s\n", NN(e->Os));
-			tpr (&p, "Date        =  %s\n", NN(e->Date));
-			tpr (&p, "Ext         =  %s\n", NN(e->Ext));
+			tpr (&p, "ErrCode     =  %d\n", UpnpDiscovery_get_ErrCode(e));
+			tpr (&p, "Expires     =  %d\n", UpnpDiscovery_get_Expires(e));
+			tpr (&p, "DeviceId    =  %s\n", NN(UpnpString_get_String(UpnpDiscovery_get_DeviceID(e))));
+			tpr (&p, "DeviceType  =  %s\n", NN(UpnpString_get_String(UpnpDiscovery_get_DeviceType(e))));
+			tpr (&p, "ServiceType =  %s\n", NN("e->ServiceType"));
+			tpr (&p, "ServiceVer  =  %s\n", NN("e->ServiceVer"));
+			tpr (&p, "Location    =  %s\n", NN(UpnpString_get_String(UpnpDiscovery_get_Location(e))));
+			tpr (&p, "OS          =  %s\n", NN(UpnpString_get_String(UpnpDiscovery_get_Os(e))));
+			tpr (&p, "Date        =  %s\n", NN("e->Date"));
+			tpr (&p, "Ext         =  %s\n", NN("e->Ext"));
 		}
 		break;
 		
@@ -136,36 +135,34 @@ UpnpUtil_GetEventString (void* talloc_context,
 			 */
 		case UPNP_CONTROL_ACTION_REQUEST:
 		{
-			const struct Upnp_Action_Request* const e =
-				(struct Upnp_Action_Request*) event;
+            UpnpDiscovery *e = (UpnpDiscovery *) event;
 	
-			tpr (&p, "ErrCode     =  %d\n", e->ErrCode);
-			tpr (&p, "ErrStr      =  %s\n", NN(e->ErrStr));
-			tpr (&p, "ActionName  =  %s\n", NN(e->ActionName));
-			tpr (&p, "DevUDN      =  %s\n", NN(e->DevUDN));
-			tpr (&p, "ServiceID   =  %s\n", NN(e->ServiceID));
-			tpr (&p, "ActRequest  =  %s\n", 
+			tpr (&p, "ErrCode     =  %d\n", UpnpDiscovery_get_ErrCode(e));
+			tpr (&p, "ErrStr      =  %s\n", NN("e->ErrStr"));
+			tpr (&p, "ActionName  =  %s\n", NN("e->ActionName"));
+			tpr (&p, "DevUDN      =  %s\n", NN("e->DevUDN"));
+			tpr (&p, "ServiceID   =  %s\n", NN("e->ServiceID"));
+			/* tpr (&p, "ActRequest  =  %s\n", 
 			     XMLUtil_GetDocumentString (tmp_ctx, 
 							e->ActionRequest));
 			tpr (&p, "ActResult   =  %s\n",
 			     XMLUtil_GetDocumentString (tmp_ctx, 
-							e->ActionResult));
+							e->ActionResult)); */
 		}
 		break;
 		
 		case UPNP_CONTROL_ACTION_COMPLETE:
 		{
-			const struct Upnp_Action_Complete* const e =
-				(struct Upnp_Action_Complete*) event;
+			UpnpActionComplete* e = (UpnpActionComplete*) event;
 			
-			tpr (&p, "ErrCode     =  %d\n", e->ErrCode);
-			tpr (&p, "CtrlUrl     =  %s\n", NN(UpnpString_get_String(e->CtrlUrl)));
+			tpr (&p, "ErrCode     =  %d\n", UpnpActionComplete_get_ErrCode(e));
+			tpr (&p, "CtrlUrl     =  %s\n", NN(UpnpString_get_String(UpnpActionComplete_get_CtrlUrl(e))));
 			tpr (&p, "ActRequest  =  %s\n",
 			     XMLUtil_GetDocumentString (tmp_ctx, 
-							e->ActionRequest));
+							UpnpActionComplete_get_ActionRequest(e)));
 			tpr (&p, "ActResult   =  %s\n", 
 			     XMLUtil_GetDocumentString (tmp_ctx, 
-							e->ActionResult));
+							UpnpActionComplete_get_ActionResult(e)));
 		}
 		break;
 		

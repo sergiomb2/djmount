@@ -523,22 +523,24 @@ EventHandlerCallback (Upnp_EventType event_type,
 	case UPNP_DISCOVERY_ADVERTISEMENT_ALIVE:
 	case UPNP_DISCOVERY_SEARCH_RESULT:
 	{
-		const struct Upnp_Discovery* const e =
-			(struct Upnp_Discovery*) event;
+        UpnpDiscovery *e = (UpnpDiscovery *) event;
 		
-		if (e->ErrCode != UPNP_E_SUCCESS) {
+		if (UpnpDiscovery_get_ErrCode(e) != UPNP_E_SUCCESS) {
 			Log_Printf (LOG_ERROR, 
 				    "Error in Discovery Callback -- %d", 
-				    e->ErrCode);	
+				    UpnpDiscovery_get_ErrCode(e));	
 		}
 		// TBD else ??
       
-		if (e->DeviceId && e->DeviceId[0]) { 
+		if (UpnpDiscovery_get_DeviceID(e)) { 
 			Log_Printf (LOG_DEBUG, 
 				    "Discovery : device type '%s' "
-				    "OS '%s' at URL '%s'", NN(e->DeviceType), 
-				    NN(e->Os), NN(e->Location));
-			AddDevice (e->DeviceId, e->Location, e->Expires);
+				    "OS '%s' at URL '%s'", NN(UpnpString_get_String(UpnpDiscovery_get_DeviceType(e))),
+				    NN(UpnpString_get_String(UpnpDiscovery_get_Os(e))),
+                    NN(UpnpString_get_String(UpnpDiscovery_get_Location(e))));
+			AddDevice (UpnpString_get_String(UpnpDiscovery_get_DeviceID(e)),
+            UpnpString_get_String(UpnpDiscovery_get_Location(e)), 
+            UpnpDiscovery_get_Expires(e));
 			Log_Printf (LOG_DEBUG, "Discovery: "
 				    "DeviceList after AddDevice = \n%s",
 				    DeviceList_GetStatusString (tmp_ctx));
@@ -555,17 +557,17 @@ EventHandlerCallback (Upnp_EventType event_type,
 		
 	case UPNP_DISCOVERY_ADVERTISEMENT_BYEBYE:
     	{
-		struct Upnp_Discovery* e = (struct Upnp_Discovery*) event;
+        UpnpDiscovery *e = (UpnpDiscovery *) event;
       
-		if (e->ErrCode != UPNP_E_SUCCESS ) {
+		if (UpnpDiscovery_get_ErrCode(e) != UPNP_E_SUCCESS ) {
 			Log_Printf (LOG_ERROR,
 				    "Error in Discovery ByeBye Callback -- %d",
-				    e->ErrCode );
+				     UpnpDiscovery_get_ErrCode(e));
 		}
 		
 		Log_Printf (LOG_DEBUG, "Received ByeBye for Device: %s",
-			    e->DeviceId );
-		DeviceList_RemoveDevice (e->DeviceId);
+			    UpnpString_get_String(UpnpDiscovery_get_DeviceID(e)));
+		DeviceList_RemoveDevice (UpnpString_get_String(UpnpDiscovery_get_DeviceID(e)));
 		
 		Log_Printf (LOG_DEBUG, "DeviceList after byebye: \n%s",
 			    DeviceList_GetStatusString (tmp_ctx));
@@ -577,13 +579,12 @@ EventHandlerCallback (Upnp_EventType event_type,
 	 */
 	case UPNP_CONTROL_ACTION_COMPLETE:
     	{
-		struct Upnp_Action_Complete* e = 
-			(struct Upnp_Action_Complete*) event;
+		UpnpActionComplete* e = (UpnpActionComplete*) event;
       
-		if (e->ErrCode != UPNP_E_SUCCESS ) {
+		if (UpnpActionComplete_get_ErrCode(e) != UPNP_E_SUCCESS ) {
 			Log_Printf (LOG_ERROR,
 				    "Error in  Action Complete Callback -- %d",
-				    e->ErrCode );
+				     UpnpActionComplete_get_ErrCode(e) );
 		}
 		
 		/*
@@ -617,8 +618,7 @@ EventHandlerCallback (Upnp_EventType event_type,
 	case UPNP_EVENT_UNSUBSCRIBE_COMPLETE:
 	case UPNP_EVENT_RENEWAL_COMPLETE:
 	{
-		struct Upnp_Event_Subscribe* e =
-			(struct Upnp_Event_Subscribe*) event;
+		UpnpEventSubscribe* e = (UpnpEventSubscribe*) event;
       
 		if (e->ErrCode != UPNP_E_SUCCESS ) {
 			Log_Printf (LOG_ERROR,
@@ -648,8 +648,7 @@ EventHandlerCallback (Upnp_EventType event_type,
 	case UPNP_EVENT_AUTORENEWAL_FAILED:
 	case UPNP_EVENT_SUBSCRIPTION_EXPIRED:
     	{
-		struct Upnp_Event_Subscribe* e = 
-			(struct Upnp_Event_Subscribe*) event;
+		UpnpEventSubscribe* e = (UpnpEventSubscribe*) event;
 
 		Log_Printf (LOG_DEBUG, "Renewing subscription for eventURL %s",
 			    NN(UpnpString_get_String(e->PublisherUrl)));

@@ -85,7 +85,7 @@ extern "C" {
  * @param element	the DOM Element from which to extract the value
  *****************************************************************************/
 const char* 
-XMLUtil_GetElementValue (IN const IXML_Element* element);
+XMLUtil_GetElementValue (const IXML_Element* element);
 
 
 /*****************************************************************************
@@ -138,7 +138,7 @@ XMLUtil_FindFirstElementValue (const IXML_Node* const node,
  * 	  The returned string should be freed using "talloc_free".
  *****************************************************************************/
 char*
-XMLUtil_GetDocumentString (void* talloc_context, IN IXML_Document* doc);
+XMLUtil_GetDocumentString (void* talloc_context, IXML_Document* doc);
 
 
 /*****************************************************************************
@@ -146,7 +146,7 @@ XMLUtil_GetDocumentString (void* talloc_context, IN IXML_Document* doc);
  * 	  The returned string should be freed using "talloc_free".
  *****************************************************************************/
 char*
-XMLUtil_GetNodeString (void* talloc_context, IN const IXML_Node* node);
+XMLUtil_GetNodeString (void* talloc_context, const IXML_Node* node);
 
 
 

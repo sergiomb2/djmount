@@ -47,8 +47,8 @@ extern "C" {
  *****************************************************************************/
 char*
 UpnpUtil_GetEventString (void* talloc_context,
-			 IN Upnp_EventType eventType, 
-			 IN const void* event);
+			 Upnp_EventType eventType, 
+			 const void* event);
 
 
 /*****************************************************************************
@@ -56,7 +56,7 @@ UpnpUtil_GetEventString (void* talloc_context,
  * @return 	a static constant string, or NULL if unknown event type.
  *****************************************************************************/
 const char*
-UpnpUtil_GetEventTypeString (IN Upnp_EventType e);
+UpnpUtil_GetEventTypeString (Upnp_EventType e);
 
 
 

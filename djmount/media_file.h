@@ -63,7 +63,7 @@ typedef struct _MediaFile {
  * @return	true if success, false if error
  *****************************************************************************/
 bool
-MediaFile_GetPreferred (const DIDLObject* o, OUT MediaFile* file);
+MediaFile_GetPreferred (const DIDLObject* o, MediaFile* file);
 
 
 /*****************************************************************************
