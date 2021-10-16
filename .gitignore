@@ -32,3 +32,13 @@ stamp-h1
 djmount/search_help.h
 djmount/djmount
 djmount/test_upnp
+compile
+config.guess
+config.sub
+depcomp
+install-sh
+ltmain.sh
+missing
+m4/
+gl/m4/
+ABOUT-NLS

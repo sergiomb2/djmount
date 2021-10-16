@@ -5,15 +5,12 @@
 # Copyright (C) 2005 Rémi Turboult <r3mi@users.sourceforge.net>
 #
 
-ACLOCAL_AMFLAGS = -I m4 -I gl/m4
-
 CLEANFILES	= IUpnpErrFile.txt IUpnpInfoFile.txt
 
 SUBDIRS 	= gl
 SUBDIRS 	+= djmount
 
 EXTRA_DIST	= libupnp/config.aux/config.rpath  search_help.txt
-
 
 # 
 # Note : 'libupnp' has a complete autoconf/automake system, which also handles
@@ -40,4 +37,6 @@ uninstall:
 uninstall-info :
 	$(MAKE) $(AM_MAKEFLAGS) -C djmount $@
 
+
+ACLOCAL_AMFLAGS = -I m4
 

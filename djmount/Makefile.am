@@ -24,9 +24,7 @@ AM_CFLAGS		= -I$(top_srcdir)/gl \
 
 LDADD			= -L$(top_builddir)/gl -lgnu \
 			  $(TALLOC_LIBS) $(LIBUPNP_LIBS) $(FUSE_LIBS) 
-if ENABLE_CHARSET
-    LDADD		+= $(LIBICONV)
-endif
+LDADD		+= $(LIBICONV)
 
 
 bin_PROGRAMS 		= djmount
@@ -45,12 +43,7 @@ COMMON_SRCS 		= log.c object.c service.c \
 			  content_dir.c vfs.c djfs.c upnp_util.c \
 			  string_util.c xml_util.c ptr_array.c talloc_util.c \
 			  cache.c
-if ENABLE_CHARSET
     COMMON_SRCS 	+= charset.c
-if !WANT_ICONV
-    COMMON_SRCS 	+= charset_internal.c
-endif
-endif
 
 noinst_HEADERS		= \
 			log.h object.h object_p.h service.h service_p.h \
