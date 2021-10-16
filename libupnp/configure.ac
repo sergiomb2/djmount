@@ -16,6 +16,7 @@ AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_SRCDIR(upnp/inc/upnp.h)
 
 AM_INIT_AUTOMAKE([1.9 -Wall foreign subdir-objects])
+AM_PROG_AR
 
 # The new "config.h" file is auto-generated (the previous one in ./upnp/inc
 # has been renamed to "upnpconfig.h")
