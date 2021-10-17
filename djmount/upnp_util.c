@@ -168,27 +168,25 @@ UpnpUtil_GetEventString (void* talloc_context,
 		
 		case UPNP_CONTROL_GET_VAR_REQUEST:
 		{
-			const struct Upnp_State_Var_Request* const e =
-				(struct Upnp_State_Var_Request*) event;
+			UpnpStateVarRequest* e = (UpnpStateVarRequest*) event;
 			
-			tpr (&p, "ErrCode     =  %d\n", e->ErrCode);
-			tpr (&p, "ErrStr      =  %s\n", NN(e->ErrStr));
-			tpr (&p, "DevUDN      =  %s\n", NN(e->DevUDN));
-			tpr (&p, "ServiceID   =  %s\n", NN(e->ServiceID));
-			tpr (&p, "StateVarName=  %s\n", NN(e->StateVarName));
-			tpr (&p, "CurrentVal  =  %s\n", NN(e->CurrentVal));
+			tpr (&p, "ErrCode     =  %d\n", UpnpStateVarRequest_get_ErrCode(e);
+			tpr (&p, "ErrStr      =  %s\n", NN(UpnpString_get_String(UpnpStateVarRequest_get_ErrStr(e))));
+			tpr (&p, "DevUDN      =  %s\n", NN(UpnpString_get_String(UpnpStateVarRequest_get_DevUDN(e))));
+			tpr (&p, "ServiceID   =  %s\n", NN(UpnpString_get_String(UpnpStateVarRequest_get_ServiceID(e))));
+			tpr (&p, "StateVarName=  %s\n", NN(UpnpString_get_String(UpnpStateVarRequest_get_StateVarName(e))));
+			tpr (&p, "CurrentVal  =  %s\n", NN(UpnpString_get_String(UpnpStateVarRequest_get_CurrentVal(e))));
 		}
 		break;
 		
 		case UPNP_CONTROL_GET_VAR_COMPLETE:
 		{
-			const struct Upnp_State_Var_Complete* const e =
-				(struct Upnp_State_Var_Complete*) event;
+			UpnpStateVarComplete* e = (UpnpStateVarComplete*) event;
 			
 			tpr (&p, "ErrCode     =  %d\n", e->ErrCode);
 			tpr (&p, "CtrlUrl     =  %s\n", NN(UpnpString_get_String(e->CtrlUrl)));
-			tpr (&p, "StateVarName=  %s\n", NN(e->StateVarName));
-			tpr (&p, "CurrentVal  =  %s\n", NN(e->CurrentVal));
+			tpr (&p, "StateVarName=  %s\n", NN(UpnpString_get_String(e->StateVarName));
+			tpr (&p, "CurrentVal  =  %s\n", NN(UpnpString_get_String(e->CurrentVal));
 		}
 		break;
 		
